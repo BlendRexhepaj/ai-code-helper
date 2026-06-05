@@ -1,122 +1,61 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState } from 'react';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [question, setQuestion] = useState('');
+  const [answer, setAnswer] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!question.trim()) return;
+    
+    // Këtu simulojmë një përgjigje derisa të lidhim Inteligjencën Artificiale në javët në vazhdim
+    setAnswer("Kjo është një përgjigje testuese nga AI Code Helper. Për momentin ndërfaqja (UI) funksionon në mënyrë perfekte! Pyetja juaj ishte: " + question);
+    setQuestion('');
+  };
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className="app-container">
+      {/* 1. Navbar */}
+      <nav className="navbar">
+        <div className="logo">🤖 AI Code Helper</div>
+        <ul className="nav-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">Rreth Projektit</a></li>
+        </ul>
+      </nav>
 
-      <div className="ticks"></div>
+      {/* 2. Home Page */}
+      <main className="main-content">
+        <header className="hero">
+          <h1>Si mund t'ju ndihmoj me kodin sot?</h1>
+          <p>Shkruani pyetjen ose kodin tuaj më poshtë dhe merrni asistencë në kohë reale.</p>
+        </header>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+        {/* 3. Box për përgjigje (Shfaqet vetëm kur ka përgjigje) */}
+        <div className="chat-container">
+          {answer && (
+            <div className="answer-box">
+              <strong>Përgjigjja nga AI:</strong>
+              <p>{answer}</p>
+            </div>
+          )}
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+        {/* 4. Input për pyetje */}
+        <form className="input-form" onSubmit={handleSubmit}>
+          <textarea
+            className="question-input"
+            placeholder="Shkruaj pyetjen tënde këtu..."
+            value={question}
+            onChange={(e) => setQuestion(e.target.value)}
+            rows="4"
+          ></textarea>
+          <button type="submit" className="submit-btn">Dërgo Pyetjen</button>
+        </form>
+      </main>
+    </div>
+  );
 }
 
-export default App
+export default App;
